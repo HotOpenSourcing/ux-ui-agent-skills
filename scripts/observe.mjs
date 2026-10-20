@@ -135,12 +135,14 @@ function buildSession(id, events, receipts) {
       detail: lastStop.outcome === 'warn_no_browser'
         ? 'no browser on this machine: pages could not be measured'
         : open.length ? `${open.length} of ${(lastStop.pages || []).length} page(s) unmeasured or failing at the end`
-          : `${(lastStop.pages || []).length} page(s), all with a passing gate` });
+          : (lastStop.pages || []).length ? `${lastStop.pages.length} page(s), all with a passing gate`
+            : 'no pages edited, nothing to measure' });
     rules.push({ rule: 'fixed', ok: !openFindings.length,
       detail: openFindings.length ? `${openFindings.length} finding(s) still on the latest version`
         : findings.length ? `${findings.length} finding(s) caught on write, all fixed` : 'no findings on write' });
     rules.push({ rule: 'not quit', ok: !released,
-      detail: released ? 'finished while the Stop hook still had pages open' : `blocked ${blocks} time(s), resolved each` });
+      detail: released ? 'finished while the Stop hook still had pages open'
+        : blocks ? `blocked ${blocks} time(s), resolved each` : 'never blocked' });
     verdict = lastStop.outcome === 'warn_no_browser' && !openFindings.length && !released ? 'unmeasurable'
       : rules.every(r => r.ok) ? 'followed' : 'broke';
   }
@@ -332,10 +334,7 @@ h2{font-size:var(--text-xl);margin-block-end:var(--space-4)}
 .session{background:var(--color-surface-card);border:var(--border-width-thin) solid var(--color-border-default);border-radius:var(--radius-card)}
 .session summary{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-4);padding:var(--space-4);cursor:pointer;border-radius:var(--radius-card);min-block-size:2.75rem}
 .session summary:hover{background:var(--color-surface-raised)}
-/* Not --shadow-focus-ring: in this theme's dark mode its ring is 2.93:1 on the
-   page and 2.52:1 on a card, under the 3:1 a focus indicator needs. Primary
-   text is the one colour that clears it on every surface in both themes. */
-.session summary:focus-visible{outline:var(--border-width-medium) solid var(--color-text-primary);outline-offset:var(--border-width-medium)}
+.session summary:focus-visible{outline:none;box-shadow:var(--shadow-focus-ring)}
 .session summary::-webkit-details-marker{display:none}
 .chev{inline-size:var(--space-4);block-size:var(--space-4);flex:none;color:var(--color-text-secondary);transition:transform var(--duration-fast) var(--ease-out)}
 .session[open] .chev{transform:rotate(90deg)}

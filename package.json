@@ -1,7 +1,7 @@
 {
   "name": "ux-ui-agent-skills",
   "version": "2.10.0",
-  "description": "Design-system kit for coding agents — DTCG design tokens, 52 components, WCAG 2.2 AA→AAA + i18n/RTL accessibility, enforced single-theme consistency (contrast, hardcode, Tailwind-palette, theme-ref + CI gates), any-framework code, 138 design systems, 52 objective gates. Claude Code reads CLAUDE.md and 26 runnable skills; Codex, Cursor, Copilot and Aider read AGENTS.md. Install as a plugin, with npx, or with brew.",
+  "description": "Design-system kit for coding agents \u2014 DTCG design tokens, 52 components, WCAG 2.2 AA\u2192AAA + i18n/RTL accessibility, enforced single-theme consistency (contrast, hardcode, Tailwind-palette, theme-ref + CI gates), any-framework code, 138 design systems, 52 objective gates. Claude Code reads CLAUDE.md and 26 runnable skills; Codex, Cursor, Copilot and Aider read AGENTS.md. Install as a plugin, with npx, or with brew.",
   "type": "commonjs",
   "bin": {
     "ux-ui-skills": "bin/cli.js",
@@ -30,7 +30,7 @@
     "test:axe": "node scripts/axe_audit.mjs",
     "test:focustrap": "node scripts/verify_focustrap.mjs",
     "test:rtl": "node scripts/verify_rtl.mjs",
-    "build:tokens": "node scripts/build_tokens.mjs --out dist/tokens.css",
+    "build:tokens": "node init && node scripts/build_tokens.mjs --out dist/tokens.css",
     "render:source": "node scripts/render_framework_source.mjs",
     "docs:shots": "node scripts/screenshot_docs.mjs",
     "docs:shots:check": "node scripts/screenshot_docs.mjs --check",

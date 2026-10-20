@@ -34,6 +34,13 @@ version, and the agent never finished while the Stop hook still had pages open.
   the kit's theme. The page passes the kit's render gates in light and dark.
 - Ten tests drive the real hooks to produce each verdict, including a session
   that quit while blocked and one that left a finding open.
+- **Dark-mode focus rings now clear 3:1 on every surface.** The shared example
+  theme drew the ring in `action-primary` (#006a6b): 2.93:1 on the dark page,
+  2.34:1 on a card, 1.63:1 on a raised surface, on every component-states page.
+  It now uses the theme's light teal link colour. The golden theme's dark ring
+  was 2.84:1 on its raised surface and now uses blue.400. No render gate
+  measured the ring itself; `tests/meta/focus-ring.test.mjs` now resolves each
+  shipped theme's ring per theme and measures it against every surface token.
 
 ---
 

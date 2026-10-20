@@ -90,6 +90,10 @@ test('a finding left on the latest version breaks "fixed"; fixing it on a later 
   assert.equal(s.findings[0].gate, 'lint_hardcodes.py');
   assert.equal(s.verdict, 'broke');
   assert.equal(s.rules.find(r => r.rule === 'fixed').ok, false);
+  // A session that edited no page and was never blocked says so in words, not
+  // as "0 page(s), all with a passing gate" / "blocked 0 time(s), resolved each".
+  assert.equal(s.rules.find(r => r.rule === 'measured').detail, 'no pages edited, nothing to measure');
+  assert.equal(s.rules.find(r => r.rule === 'not quit').detail, 'never blocked');
 
   writeFileSync(css, '.a{color:var(--color-text-primary)}\n');
   edit(css);
